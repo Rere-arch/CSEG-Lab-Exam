@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Decisions — DreamForge Prototype</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="game">
+  <div id="menu" class="panel">
+    <h1>DECISIONS</h1>
+    <p class="subtitle">A short interactive story — DreamForge Prototype</p>
+    <div class="menu-buttons">
+      <button id="startBtn">Start</button>
+      <button id="loadBtn">How to Play</button>
+    </div>
+    <footer>Estimated play time: 8–12 minutes • Multiple endings</footer>
+  </div>
+
+  <div id="overlay" class="hidden"></div>
+
+  <div id="ui" class="hidden">
+    <div id="topbar">
+      <div id="title">DECISIONS</div>
+      <div id="controls">
+        <button id="pauseBtn">Pause</button>
+      </div>
+    </div>
+
+    <div id="scene">
+      <div id="bg" class="bg-neutral"></div>
+      <div id="dialogueBox" class="dialogue">
+        <div id="speaker"></div>
+        <div id="text"></div>
+        <div id="choices"></div>
+        <div id="next" class="small">Click/tap to continue</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pauseMenu" class="panel hidden">
+    <h2>Paused</h2>
+    <div class="menu-buttons">
+      <button id="resumeBtn">Resume</button>
+      <button id="restartBtn">Restart</button>
+    </div>
+  </div>
+
+  <div id="howto" class="panel hidden">
+    <h2>How to Play</h2>
+    <p>Read the story, make meaningful choices. Some choices are timed.</p>
+    <ul>
+      <li>At least two major decisions</li>
+      <li>Dynamic audio + visual feedback</li>
+      <li>Multiple endings based on choices</li>
+    </ul>
+    <div class="menu-buttons"><button id="closeHowto">Close</button></div>
+  </div>
+
+  <div id="ending" class="panel hidden">
+    <h2 id="endingTitle"></h2>
+    <p id="endingText"></p>
+    <div class="menu-buttons">
+      <button id="playAgain">Play Again</button>
+      <button id="downloadDoc">Download Documentation (PDF)</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

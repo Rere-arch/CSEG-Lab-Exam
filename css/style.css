@@ -1,0 +1,191 @@
+/* ============================
+   GLOBAL STYLES
+============================ */
+* {
+    box-sizing: border-box;
+    font-family: Inter, system-ui, Arial, Helvetica, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: #0b0f14;
+    color: #e6eef6;
+}
+
+/* ============================
+   GAME CONTAINER
+============================ */
+#game {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* ============================
+   PANELS (Menu, Pause, Ending)
+============================ */
+.panel {
+    background: linear-gradient(180deg, #0f1720, #07111a);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 760px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.panel h1 {
+    margin: 0 0 6px 0;
+    font-size: 34px;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: #9fb0c8;
+    margin-bottom: 16px;
+}
+
+/* ============================
+   BUTTONS
+============================ */
+.menu-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+button {
+    background: #1f6feb;
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.15s ease;
+}
+
+button:hover {
+    filter: brightness(1.05);
+}
+
+/* ============================
+   UI LAYOUT
+============================ */
+#ui {
+    position: relative;
+    width: 980px;
+    max-width: 98%;
+    height: 640px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* ============================
+   TOP BAR
+============================ */
+#topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* ============================
+   SCENE & BACKGROUND
+============================ */
+#scene {
+    position: relative;
+    height: calc(100% - 56px);
+    display: flex;
+    align-items: flex-end;
+    padding: 18px;
+}
+
+#bg {
+    position: absolute;
+    inset: 0;
+    transition: background 0.6s ease;
+}
+
+.bg-neutral {
+    background: linear-gradient(180deg, #102233, #0b2430);
+}
+
+.bg-warm {
+    background: linear-gradient(180deg, #3a1b11, #5c2b20);
+}
+
+.bg-cold {
+    background: linear-gradient(180deg, #07203a, #0b3a59);
+}
+
+/* ============================
+   DIALOGUE BOX
+============================ */
+.dialogue {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    padding: 16px;
+    border-radius: 10px;
+    width: 100%;
+    color: #eaf6ff;
+}
+
+#speaker {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+#text {
+    min-height: 80px;
+    line-height: 1.45;
+}
+
+/* ============================
+   CHOICES
+============================ */
+#choices {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.choiceBtn {
+    background: #2b445b;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.choiceBtn:hover {
+    transform: translateY(-2px);
+}
+
+/* ============================
+   MISC TEXT
+============================ */
+.small {
+    font-size: 12px;
+    color: #9fb0c8;
+    margin-top: 8px;
+}
+
+footer {
+    font-size: 12px;
+    color: #8aa0b4;
+    margin-top: 12px;
+}
+
+/* ============================
+   HIDDEN CLASS
+============================ */
+.hidden {
+    display: none;
+}
