@@ -1,74 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decisions — DreamForge Prototype</title>
-
-    <!-- CSS MUST be in the same folder -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Office: Career Simulator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <div id="app">
+    <!-- Header / Goal -->
+    <header>
+      <h1>Office: Career Simulator</h1>
+      <p class="subtitle">Goal: Get promoted within 7 workdays. Manage Performance, Reputation, and Energy.</p>
+      <div id="goal">Days left: <span id="daysLeft">7</span> · Target: Promotion</div>
+    </header>
 
-<!-- ======================= MENU ======================= -->
-<div id="menu" class="panel">
-    <h1>DECISIONS</h1>
-    <p class="subtitle">A short interactive story — DreamForge Prototype</p>
+    <!-- Top status -->
+    <section id="statusBar">
+      <div class="stat">
+        <label>Performance</label>
+        <div class="bar"><div id="perfBar" class="fill"></div></div>
+        <div class="statVal" id="perfVal">50</div>
+      </div>
+      <div class="stat">
+        <label>Reputation</label>
+        <div class="bar"><div id="repBar" class="fill"></div></div>
+        <div class="statVal" id="repVal">50</div>
+      </div>
+      <div class="stat">
+        <label>Energy</label>
+        <div class="bar"><div id="engBar" class="fill"></div></div>
+        <div class="statVal" id="engVal">50</div>
+      </div>
+    </section>
 
-    <div class="menu-buttons">
-        <button id="startBtn">Start</button>
-        <button id="howBtn">How to Play</button>
-    </div>
-</div>
+    <!-- Scene / narrative -->
+    <main>
+      <div id="dayHeader">Day <span id="dayNum">1</span></div>
+      <div id="story" class="panel">
+        <div id="sceneText">Morning briefing: the team needs results this week. Your manager asks for updates.</div>
+      </div>
 
-<!-- ======================= HOW TO PLAY ======================= -->
-<div id="howto" class="panel hidden">
-    <h2>How to Play</h2>
-    <p>Read the story and make meaningful choices.</p>
-    <ul>
-        <li>At least two major decisions</li>
-        <li>Dynamic audio + visual feedback</li>
-        <li>Multiple endings based on choices</li>
-    </ul>
-    <button id="closeHowto">Close</button>
-</div>
+      <!-- Choices -->
+      <div id="choices" class="panel">
+        <!-- JS will insert choice buttons here -->
+      </div>
 
-<!-- ======================= GAME UI ======================= -->
-<div id="ui" class="hidden">
-    <div id="topbar">
-        <div id="title">DECISIONS</div>
-        <button id="pauseBtn">Pause</button>
-    </div>
+      <!-- Feedback / log -->
+      <div id="log" class="panel">
+        <h3>Activity Log</h3>
+        <ul id="logList"></ul>
+      </div>
+    </main>
 
-    <div id="scene">
-        <div id="bg" class="bg-neutral"></div>
+    <!-- Achievements & End -->
+    <aside id="sidebar">
+      <div class="panel">
+        <h3>Achievements</h3>
+        <ul id="achList">
+          <li id="achBalanced" class="locked">Balanced Worker — maintain stats between 40–70</li>
+          <li id="achWorkaholic" class="locked">Workaholic — +20 Performance in one day</li>
+          <li id="achTeam" class="locked">Team Player — reputation +30 across game</li>
+          <li id="achEthic" class="locked">Ethical — refused a shortcut that would cost reputation</li>
+          <li id="achFired" class="locked">Fired — reach 0 Energy or Reputation</li>
+        </ul>
+      </div>
 
-        <div id="dialogueBox" class="dialogue">
-            <div id="speaker"></div>
-            <div id="text"></div>
-            <div id="choices"></div>
-            <div id="next" class="small">Click/tap to continue</div>
+      <div class="panel">
+        <h3>Quick Tips</h3>
+        <ul>
+          <li>Balance effort with rest — energy recovers slowly.</li>
+          <li>Some risky choices increase Performance quickly but harm Reputation.</li>
+          <li>Achievements grant bonus toward Promotion check.</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- End modal -->
+    <div id="endModal" class="modal hidden">
+      <div class="modalContent">
+        <h2 id="endTitle"></h2>
+        <p id="endText"></p>
+        <h4>Achievements earned:</h4>
+        <ul id="endAch"></ul>
+        <div class="modalBtns">
+          <button id="restartBtn">Play Again</button>
+          <button id="downloadReportBtn">Download Report (JSON)</button>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- ======================= PAUSE MENU ======================= -->
-<div id="pauseMenu" class="panel hidden">
-    <h2>Paused</h2>
-    <button id="resumeBtn">Resume</button>
-    <button id="restartBtn">Restart</button>
-</div>
+    <footer>
+      <small>Made for exam / demo. Playable HTML prototype.</small>
+    </footer>
+  </div>
 
-<!-- ======================= ENDING SCREEN ======================= -->
-<div id="ending" class="panel hidden">
-    <h2 id="endingTitle"></h2>
-    <p id="endingText"></p>
-    <button id="playAgain">Play Again</button>
-</div>
-
-<!-- JS MUST be in the same folder -->
 <script src="script.js"></script>
-
 </body>
 </html>
