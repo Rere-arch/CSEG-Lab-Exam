@@ -1,145 +1,126 @@
 const state = {
-  sceneIndex: 0,
-  flags: {},
-  decisionCount: 0,
-  startTime: null
+    scene: 0,
+    flags: {}
 };
 
 const scenes = [
-  { speaker: '', text: "You wake on a rainy evening outside DreamForge's studio...", bg:'neutral' },
-  { speaker: 'Narrator', text: "The Creative Director greets you...", bg:'neutral' },
-
-  // Decision 1
-  { 
-    speaker: 'Director',
-    text: "First decision: What will you prioritize?",
-    bg:'neutral',
-    choices: [
-      {id:'A', label:'Emotion-first (Story)', effect:()=>{state.flags.path='emotion'; setBG('warm'); playTone(440,0.12);} },
-      {id:'B', label:'Systems-first (Mechanic)', effect:()=>{state.flags.path='system'; setBG('cold'); playTone(220,0.12);} }
-    ],
-    timed: true,
-    timer: 10
-  },
-
-  // Decision 2
-  { 
-    speaker:'Narrator',
-    text:"Next: Clarity or mystery?",
-    bg:'neutral',
-    choices:[
-      {id:'1', label:'Keep it clear', effect:()=>{state.flags.clarity='clear'; playTone(660,0.08);} },
-      {id:'2', label:'Make it mysterious', effect:()=>{state.flags.clarity='mystery'; playTone(330,0.08);} }
-    ]
-  },
-
-  // Decision 3
-  { 
-    speaker:'Narrator',
-    text:"A journal reads: Forgive or Remember?",
-    bg:'neutral',
-    choices:[
-      {id:'forgive', label:'Forgive', effect:()=>{state.flags.theme='forgiveness'; setBG('warm');} },
-      {id:'remember', label:'Remember', effect:()=>{state.flags.theme='memory'; setBG('cold');} }
-    ]
-  },
-
-  { speaker:'Director', text:"The prototype is complete.", bg:'neutral' },
+    {
+        s: "",
+        t: "You arrive outside DreamForge Studios on a rainy night..."
+    },
+    {
+        s: "Narrator",
+        t: "The Creative Director greets you warmly..."
+    },
+    {
+        s: "Director",
+        t: "First decision: What will you prioritize?",
+        choices: [
+            { label: "Emotion-first (Story)", effect: () => { state.flags.path = "emotion"; setBG("warm"); } },
+            { label: "Systems-first (Mechanic)", effect: () => { state.flags.path = "system"; setBG("cold"); } }
+        ]
+    },
+    {
+        s: "Narrator",
+        t: "Second decision: Clarity or Mystery?",
+        choices: [
+            { label: "Clear guidance", effect: () => { state.flags.clarity = "clear"; } },
+            { label: "Mysterious tone", effect: () => { state.flags.clarity = "mystery"; } }
+        ]
+    },
+    {
+        s: "Narrator",
+        t: "A notebook shows two sticky notes...",
+        choices: [
+            { label: "Forgive", effect: () => { state.flags.theme = "forgiveness"; setBG("warm"); } },
+            { label: "Remember", effect: () => { state.flags.theme = "memory"; setBG("cold"); } }
+        ]
+    },
+    {
+        s: "Director",
+        t: "Your prototype is complete...",
+        end: true
+    }
 ];
 
-const endings = {
-  A_clear_forgiveness: { title:'Warm Closure', text:"Your emotional prototype moved players deeply.", tone:'warm' },
-  A_mystery_memory: { title:'Bittersweet Echo', text:"A haunting, mysterious narrative about memory.", tone:'cold' },
-  B_clear_memory: { title:'Ingenious System', text:"A clever system-driven branching narrative.", tone:'cold' },
-  B_mystery_forgiveness: { title:'Ambiguous Hope', text:"Ambiguous but hopeful reconciliation.", tone:'warm' },
-  fallback: { title:'Prototype Built', text:"A balanced prototype with meaningful decisions." }
+function $(id) { return document.getElementById(id); }
+
+function setBG(type) {
+    const bg = $("bg");
+    bg.className = "";
+    bg.classList.add("bg-" + type);
+}
+
+function loadScene() {
+    const scene = scenes[state.scene];
+
+    $("speaker").textContent = scene.s;
+    $("text").textContent = scene.t;
+    $("choices").innerHTML = "";
+
+    $("next").style.display = scene.choices ? "none" : "block";
+
+    if (scene.choices) {
+        scene.choices.forEach(c => {
+            const btn = document.createElement("button");
+            btn.className = "choiceBtn";
+            btn.textContent = c.label;
+            btn.onclick = () => {
+                c.effect();
+                nextScene();
+            };
+            $("choices").appendChild(btn);
+        });
+    }
+
+    if (scene.end) finishGame();
+}
+
+function nextScene() {
+    state.scene++;
+    loadScene();
+}
+
+function finishGame() {
+    $("ui").classList.add("hidden");
+    $("ending").classList.remove("hidden");
+
+    $("endingTitle").textContent = "Your Ending";
+    $("endingText").textContent = JSON.stringify(state.flags, null, 2);
+}
+
+/* ======================= BUTTONS ======================= */
+
+$("startBtn").onclick = () => {
+    $("menu").classList.add("hidden");
+    $("ui").classList.remove("hidden");
+    loadScene();
 };
 
-function $(id){return document.getElementById(id);}
-function setBG(type){
-  const bg=$('bg');
-  bg.className='';
-  bg.classList.add('bg-'+type);
-}
+$("howBtn").onclick = () => {
+    $("menu").classList.add("hidden");
+    $("howto").classList.remove("hidden");
+};
 
-function playTone(freq,dur){
-  try{
-    const ctx=window.audioCtx||(window.audioCtx=new AudioContext());
-    const o=ctx.createOscillator(), g=ctx.createGain();
-    o.frequency.value=freq;
-    g.gain.value=0.02;
-    o.connect(g); g.connect(ctx.destination);
-    o.start();
-    setTimeout(()=>o.stop(),dur*1000);
-  }catch(e){}
-}
+$("closeHowto").onclick = () => {
+    $("howto").classList.add("hidden");
+    $("menu").classList.remove("hidden");
+};
 
-function showScene(i){
-  const s = scenes[i];
-  $('speaker').textContent = s.speaker;
-  $('text').textContent = s.text;
-  $('choices').innerHTML = '';
-  $('next').style.display = s.choices ? 'none' : 'block';
+$("pauseBtn").onclick = () => {
+    $("ui").classList.add("hidden");
+    $("pauseMenu").classList.remove("hidden");
+};
 
-  if(s.choices){
-    s.choices.forEach(choice=>{
-      const btn=document.createElement('button');
-      btn.classList.add('choiceBtn');
-      btn.textContent=choice.label;
-      btn.onclick=()=>{
-        choice.effect();
-        state.decisionCount++;
-        nextScene();
-      };
-      $('choices').appendChild(btn);
-    });
-  }
-}
+$("resumeBtn").onclick = () => {
+    $("pauseMenu").classList.add("hidden");
+    $("ui").classList.remove("hidden");
+};
 
-function nextScene(){
-  state.sceneIndex++;
-  if(state.sceneIndex >= scenes.length) finishGame();
-  else showScene(state.sceneIndex);
-}
+$("restartBtn").onclick = () => location.reload();
 
-function finishGame(){
-  const p = state.flags.path || 'B';
-  const c = state.flags.clarity || 'clear';
-  const t = state.flags.theme || 'forgiveness';
+$("playAgain").onclick = () => location.reload();
 
-  let key='fallback';
-  if(p==='emotion' && c==='clear' && t==='forgiveness') key='A_clear_forgiveness';
-  if(p==='emotion' && c==='mystery' && t==='memory') key='A_mystery_memory';
-  if(p==='system' && c==='clear' && t==='memory') key='B_clear_memory';
-  if(p==='system' && c==='mystery' && t==='forgiveness') key='B_mystery_forgiveness';
-
-  const end = endings[key];
-
-  $('endingTitle').textContent=end.title;
-  $('endingText').textContent=end.text;
-
-  $('ui').classList.add('hidden');
-  $('ending').classList.remove('hidden');
-}
-
-window.onload = ()=>{
-  $('startBtn').onclick=()=>{
-    $('menu').classList.add('hidden');
-    $('ui').classList.remove('hidden');
-    showScene(0);
-  };
-
-  $('playAgain').onclick=()=>location.reload();
-  $('restartBtn').onclick=()=>location.reload();
-  $('pauseBtn').onclick=()=>{ $('pauseMenu').classList.remove('hidden'); $('ui').classList.add('hidden'); };
-  $('resumeBtn').onclick=()=>{ $('pauseMenu').classList.add('hidden'); $('ui').classList.remove('hidden'); };
-  $('loadBtn').onclick=()=>{ $('menu').classList.add('hidden'); $('howto').classList.remove('hidden'); };
-  $('closeHowto').onclick=()=>{ $('howto').classList.add('hidden'); $('menu').classList.remove('hidden'); };
-
-  document.getElementById('dialogueBox').onclick=()=>{
-    const s = scenes[state.sceneIndex];
-    if(!s.choices) nextScene();
-  };
-
-  $('downloadDoc').onclick=()=> window.open('documentation.pdf');
+$("dialogueBox").onclick = () => {
+    if (!scenes[state.scene].choices) nextScene();
 };

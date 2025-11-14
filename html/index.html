@@ -1,72 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Decisions — DreamForge Prototype</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decisions — DreamForge Prototype</title>
+
+    <!-- CSS MUST be in the same folder -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div id="game">
-  <div id="menu" class="panel">
+
+<!-- ======================= MENU ======================= -->
+<div id="menu" class="panel">
     <h1>DECISIONS</h1>
     <p class="subtitle">A short interactive story — DreamForge Prototype</p>
+
     <div class="menu-buttons">
-      <button id="startBtn">Start</button>
-      <button id="loadBtn">How to Play</button>
+        <button id="startBtn">Start</button>
+        <button id="howBtn">How to Play</button>
     </div>
-    <footer>Estimated play time: 8–12 minutes • Multiple endings</footer>
-  </div>
+</div>
 
-  <div id="overlay" class="hidden"></div>
+<!-- ======================= HOW TO PLAY ======================= -->
+<div id="howto" class="panel hidden">
+    <h2>How to Play</h2>
+    <p>Read the story and make meaningful choices.</p>
+    <ul>
+        <li>At least two major decisions</li>
+        <li>Dynamic audio + visual feedback</li>
+        <li>Multiple endings based on choices</li>
+    </ul>
+    <button id="closeHowto">Close</button>
+</div>
 
-  <div id="ui" class="hidden">
+<!-- ======================= GAME UI ======================= -->
+<div id="ui" class="hidden">
     <div id="topbar">
-      <div id="title">DECISIONS</div>
-      <div id="controls">
+        <div id="title">DECISIONS</div>
         <button id="pauseBtn">Pause</button>
-      </div>
     </div>
 
     <div id="scene">
-      <div id="bg" class="bg-neutral"></div>
-      <div id="dialogueBox" class="dialogue">
-        <div id="speaker"></div>
-        <div id="text"></div>
-        <div id="choices"></div>
-        <div id="next" class="small">Click/tap to continue</div>
-      </div>
-    </div>
-  </div>
+        <div id="bg" class="bg-neutral"></div>
 
-  <div id="pauseMenu" class="panel hidden">
-    <h2>Paused</h2>
-    <div class="menu-buttons">
-      <button id="resumeBtn">Resume</button>
-      <button id="restartBtn">Restart</button>
+        <div id="dialogueBox" class="dialogue">
+            <div id="speaker"></div>
+            <div id="text"></div>
+            <div id="choices"></div>
+            <div id="next" class="small">Click/tap to continue</div>
+        </div>
     </div>
-  </div>
-
-  <div id="howto" class="panel hidden">
-    <h2>How to Play</h2>
-    <p>Read the story, make meaningful choices. Some choices are timed.</p>
-    <ul>
-      <li>At least two major decisions</li>
-      <li>Dynamic audio + visual feedback</li>
-      <li>Multiple endings based on choices</li>
-    </ul>
-    <div class="menu-buttons"><button id="closeHowto">Close</button></div>
-  </div>
-
-  <div id="ending" class="panel hidden">
-    <h2 id="endingTitle"></h2>
-    <p id="endingText"></p>
-    <div class="menu-buttons">
-      <button id="playAgain">Play Again</button>
-    </div>
-  </div>
 </div>
 
+<!-- ======================= PAUSE MENU ======================= -->
+<div id="pauseMenu" class="panel hidden">
+    <h2>Paused</h2>
+    <button id="resumeBtn">Resume</button>
+    <button id="restartBtn">Restart</button>
+</div>
+
+<!-- ======================= ENDING SCREEN ======================= -->
+<div id="ending" class="panel hidden">
+    <h2 id="endingTitle"></h2>
+    <p id="endingText"></p>
+    <button id="playAgain">Play Again</button>
+</div>
+
+<!-- JS MUST be in the same folder -->
 <script src="script.js"></script>
+
 </body>
 </html>
