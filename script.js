@@ -261,27 +261,12 @@ function endGame(outcome){
   $('endModal').classList.remove('hidden');
 }
 
-/* ---------- Download report ---------- */
-function downloadReport(){
-  const report = {
-    final: {perf:state.perf,rep:state.rep,eng:state.eng,day:state.day},
-    achievements: state.achievements,
-    history: state.history,
-    log: state.log
-  };
-  const blob = new Blob([JSON.stringify(report,null,2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'career_report.json';
-  a.click();
-  URL.revokeObjectURL(url);
-}
+
 
 /* ---------- Initialization ---------- */
 function init(){
   // wire up end buttons
   $('restartBtn').onclick = () => location.reload();
-  $('downloadReportBtn').onclick = () => downloadReport();
 
   // initial render
   renderStats();
